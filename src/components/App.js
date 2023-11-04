@@ -1,6 +1,9 @@
+import { GlobalStyle } from './GlobalStyle';
 import { Component } from 'react';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
+import { Section } from './Section/Section';
+import { Notification } from './Notification/Notification';
 
 export class App extends Component {
   state = {
@@ -9,26 +12,11 @@ export class App extends Component {
     bad: 0,
   };
 
-  updateGood = () => {
+  updateFeedback = event => {
+    const stateToChange = event.target.innerText.toLowerCase();
     this.setState(prevState => {
       return {
-        good: prevState.good + 1,
-      };
-    });
-  };
-
-  updateNeutral = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-
-  updateBad = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
+        [stateToChange]: prevState[stateToChange] + 1,
       };
     });
   };
@@ -50,14 +38,24 @@ export class App extends Component {
 
     return (
       <div>
-        <FeedbackOptions />
-        <Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          total={total}
-          positivePercentage={positivePercentage}
-        />
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={['Good', 'Neutral', 'Bad']}
+            onLeaveFeedback={this.updateFeedback}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            positivePercentage={positivePercentage}
+          />
+        </Section>
+        {total < 1 && <Notification message="There is no feedback" />}
+
+        <GlobalStyle />
       </div>
     );
   }
