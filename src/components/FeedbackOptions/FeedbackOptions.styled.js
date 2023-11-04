@@ -4,14 +4,15 @@ export const ButtonsContainer = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
-  min-width: 500px;
+  max-width: 500px;
   padding: 16px 32px;
+  margin: 0 auto;
 `;
 
 export const Button = styled.button`
   display: block;
   margin: 0 auto;
-  min-width: 169px;
+  min-width: 100px;
   color: ${p => p.theme.colors.black};
   background-color: ${p => p.theme.colors.background};
   border: none;
