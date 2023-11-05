@@ -12,11 +12,10 @@ export class App extends Component {
     bad: 0,
   };
 
-  updateFeedback = event => {
-    const stateToChange = event.target.innerText.toLowerCase();
+  updateFeedback = option => {
     this.setState(prevState => {
       return {
-        [stateToChange]: prevState[stateToChange] + 1,
+        [option]: prevState[option] + 1,
       };
     });
   };
@@ -40,7 +39,7 @@ export class App extends Component {
       <div>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={['Good', 'Neutral', 'Bad']}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.updateFeedback}
           />
         </Section>
